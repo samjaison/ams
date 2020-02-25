@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block title %}
+    <title>Subject Details</title>
+{% endblock %}
+
+
+{% block content %}
+<h5>Subject List</h5>
+
+<table class='table'>
+    <thead class='thead-dark'>
+        <tr>            
+            <th scope="col">#</th>
+            <th scope="col">Subject Name</th>
+            <th scope="col">Teacher Name</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for subject in subjects %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ subject.sub_name }}</td>
+            <td>{{ subject.teacher_name }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}
