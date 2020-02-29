@@ -3,19 +3,19 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.db import transaction
 
-from .models import Student, User
+from .models import Student, Teacher, User
 
 class TeacherSignUpForm(UserCreationForm):
     class Meta(UserCreationForm.Meta):
         model = User
 
-    def save(self, commit=True):
+    @transaction.atomic
+    def save(self):
         user = super().save(commit=False)
         user.is_teacher = True
-        if commit:
-            user.save()
+        user.save()
+        teacher = Teacher.objects.create(user=user)
         return user
-
 class StudentSignUpForm(UserCreationForm):
 
     class Meta(UserCreationForm.Meta):
